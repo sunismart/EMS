@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  Eureka_EKA:
+    image: eureka-eka
+    container_name: eureka-eka-con
+    ports:
+      - "8761:8761"
+
+  GitConfiguration_EKA:
+    image: gitconfiguration-eka
+    container_name: gitconfiguration-eka-con
+    ports:
+      - "2029:2029"
+    depends_on:
+      - Eureka_EKA
+
+  Gateway_EKA_1:
+    image: gateway-eka
+    container_name: gateway-eka-con
+    ports:
+      - "2030:2030"
+    depends_on:
+      - GitConfiguration_EKA
+
+  AuthService:
+    image: authservice-eka
+    container_name: authservice-eka-con
+    ports:
+      - "2055:2055"
+    depends_on:
+      - GitConfiguration_EKA
+
+  AdminModule_EKA:
+    image: adminmodule-eka
+    container_name: adminmodule-eka-con
+    ports:
+      - "2022:2022"
+    depends_on:
+      - GitConfiguration_EKA
+
+  AnnouncementsModule:
+    image: announcementsmodule-eka
+    container_name: announcementsmodule-eka-con
+    ports:
+      - "2020:2020"
+    depends_on:
+      - GitConfiguration_EKA
+
+  Attendance_01:
+    image: attendance-eka
+    container_name: attendance-eka-con
+    ports:
+      - "1998:1998"
+    depends_on:
+      - GitConfiguration_EKA
+
+  DocumentsModule:
+    image: documentsmodule-eka
+    container_name: documentsmodule-eka-con
+    ports:
+      - "9999:9999"
+    depends_on:
+      - GitConfiguration_EKA
+
+  PaymentModule:
+    image: paymentmodule-eka
+    container_name: paymentmodule-eka-con
+    ports:
+      - "2025:2025"
+    depends_on:
+      - GitConfiguration_EKA
+
+  RequestsAndComplaints:
+    image: requests-eka
+    container_name: requests-eka-con
+    ports:
+      - "2021:2021"
+    depends_on:
+      - GitConfiguration_EKA
+
